@@ -93,7 +93,7 @@ const getProjectById = async (req, res) => {
       expenses: expenses.rows,
     });
   } catch (error) {
-    console.error(error);
+    console.error("PROJECT ERROR:", error);
     res.status(500).json({
       message: "Server Error",
     });
