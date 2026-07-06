@@ -86,6 +86,7 @@ function ExpenseForm({
             <option value="">Select Category</option>
             <option value="Material">Material</option>
             <option value="Labor">Labor</option>
+            <option value="Machinery">Machinery</option>
             <option value="Other">Other</option>
           </select>
 

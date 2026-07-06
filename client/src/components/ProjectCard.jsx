@@ -3,6 +3,7 @@ import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import api from "../services/api";
 import ExpenseTable from "./ExpenseTable";
 import ExpenseForm from "./ExpenseForm";
+import AIBulkImportModal from "./AIBulkImportModal";
 
 function ProjectCard({ project, refreshProjects }) {
   const [expanded, setExpanded] = useState(false);
@@ -10,6 +11,8 @@ function ProjectCard({ project, refreshProjects }) {
   const [loaded, setLoaded] = useState(false);
 
   const [showExpenseModal, setShowExpenseModal] = useState(false);
+  const [showAIModal, setShowAIModal] = useState(false);
+
   const [selectedExpense, setSelectedExpense] = useState(null);
 
   const loadExpenses = async () => {
@@ -45,6 +48,10 @@ function ProjectCard({ project, refreshProjects }) {
     setShowExpenseModal(true);
   };
 
+  const handleAIImport = () => {
+    setShowAIModal(true);
+  };
+
   const handleEditExpense = (expense) => {
     setSelectedExpense(expense);
     setShowExpenseModal(true);
@@ -70,19 +77,13 @@ function ProjectCard({ project, refreshProjects }) {
 
   return (
     <div className="project-card">
-      <div
-        className="project-header"
-        onClick={toggleAccordion}
-      >
+      <div className="project-header" onClick={toggleAccordion}>
         <div>
           <h2>{project.project_name}</h2>
           <p>{project.client_name}</p>
         </div>
 
-        <button
-          className="expand-btn"
-          type="button"
-        >
+        <button className="expand-btn" type="button">
           {expanded ? <FaChevronUp /> : <FaChevronDown />}
         </button>
       </div>
@@ -91,24 +92,21 @@ function ProjectCard({ project, refreshProjects }) {
         <div className="budget-box">
           <span>Estimated Budget</span>
           <h3>
-            AED{" "}
-            {Number(project.estimated_budget).toLocaleString()}
+            AED {Number(project.estimated_budget).toLocaleString()}
           </h3>
         </div>
 
         <div className="budget-box">
           <span>Total Expenses</span>
           <h3>
-            AED{" "}
-            {Number(project.total_expenses).toLocaleString()}
+            AED {Number(project.total_expenses).toLocaleString()}
           </h3>
         </div>
 
         <div className="budget-box">
           <span>Remaining Budget</span>
           <h3>
-            AED{" "}
-            {Number(project.remaining_budget).toLocaleString()}
+            AED {Number(project.remaining_budget).toLocaleString()}
           </h3>
         </div>
       </div>
@@ -118,12 +116,26 @@ function ProjectCard({ project, refreshProjects }) {
           <div className="expense-header">
             <h3>Expenses</h3>
 
-            <button
-              className="add-expense-btn"
-              onClick={handleAddExpense}
+            <div
+              style={{
+                display: "flex",
+                gap: "10px",
+              }}
             >
-              + Add Expense
-            </button>
+              <button
+                className="add-expense-btn"
+                onClick={handleAddExpense}
+              >
+                + Add Expense
+              </button>
+
+              <button
+                className="save-btn"
+                onClick={handleAIImport}
+              >
+                ✨ AI Import
+              </button>
+            </div>
           </div>
 
           <ExpenseTable
@@ -132,6 +144,15 @@ function ProjectCard({ project, refreshProjects }) {
             onDelete={handleDeleteExpense}
           />
         </div>
+      )}
+
+      {showAIModal && (
+        <AIBulkImportModal
+          projectId={project.id}
+          closeModal={() => setShowAIModal(false)}
+          refreshExpenses={refreshExpenses}
+          refreshProjects={refreshProjects}
+        />
       )}
 
       {showExpenseModal && (
