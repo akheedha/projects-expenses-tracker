@@ -1,177 +1,273 @@
-# KEA Projects & Expenses Tracker
+# 🏗️ BuildMetrics AI
 
-## Overview
-
-This project was developed as part of the KEA Building Contracting Full-Stack Take-Home Assignment.
-
-It is a simple full-stack application that allows users to create projects, manage project expenses, and track the remaining budget for each project.
+An AI-powered Construction Project & Expense Management Platform that helps construction companies manage projects, monitor budgets, track expenses, and gain AI-generated project insights through an interactive analytics dashboard.
 
 ---
 
-## Tech Stack
+## 🚀 Live Demo
 
-### Frontend
+### 🌐 Frontend (Vercel)
+https://projects-expenses-tracker.vercel.app
 
-* React (Vite)
-* Axios
-* CSS
-
-### Backend
-
-* Node.js
-* Express.js
-
-### Database
-
-* PostgreSQL
+### ⚙️ Backend (Railway)
+https://projects-expenses-tracker-production.up.railway.app
 
 ---
 
-## Features
+# ✨ Features
 
-* Create a new project
-* View all projects
-* Expand and collapse project details
-* Add expenses to a project
-* Edit existing expenses
-* Delete expenses
-* View estimated budget
-* View total expenses
-* View remaining budget
+## 📁 Project Management
+
+- Create construction projects
+- Store client information
+- Manage project budgets
+
+## 💰 Expense Tracking
+
+- Record project expenses
+- Categorize expenses
+- Monitor total spending
+
+## 📊 Analytics Dashboard
+
+- Total Projects
+- Total Budget
+- Total Expenses
+- Remaining Budget
+
+## 📈 Data Visualization
+
+- Budget Overview Pie Chart
+- Project Budget Comparison Bar Chart
+
+## 🤖 AI Insights
+
+Generate AI-powered project summaries and budget insights using Google Gemini AI.
 
 ---
 
-## Project Structure
+# 🛠 Tech Stack
+
+## Frontend
+
+- React.js
+- Vite
+- Bootstrap 5
+- Axios
+- Recharts
+
+## Backend
+
+- Node.js
+- Express.js
+
+## Database
+
+- PostgreSQL
+- Neon Database
+
+## AI
+
+- Google Gemini API
+
+## Deployment
+
+- Frontend: Vercel
+- Backend: Railway
+- Database: Neon PostgreSQL
+
+---
+
+# 📂 Project Structure
 
 ```
 projects-expenses-tracker
 │
 ├── client
-│   ├── public
 │   ├── src
-│   ├── package.json
-│   └── ...
+│   │   ├── components
+│   │   ├── pages
+│   │   ├── services
+│   │   └── styles
+│   │
+│   └── public
 │
 ├── server
 │   ├── controllers
-│   ├── db
 │   ├── routes
-│   ├── package.json
-│   └── server.js
+│   ├── middleware
+│   ├── db
+│   └── uploads
 │
 └── README.md
 ```
 
 ---
 
-## Database Schema
+# 🗄 Database
 
-The application uses two tables.
+## Projects Table
 
-### Projects
+| Column | Type |
+|---------|------|
+| id | Serial |
+| project_name | Text |
+| client_name | Text |
+| estimated_budget | Decimal |
 
-Stores project information including:
+## Expenses Table
 
-* Project Name
-* Client Name
-* Estimated Budget
-
-### Expenses
-
-Stores expenses related to a project including:
-
-* Description
-* Amount
-* Category
-* Project ID (Foreign Key)
-
-Relationship:
-
-```
-Projects (1) --------< Expenses (Many)
-```
-
-Each project can have multiple expenses.
+| Column | Type |
+|---------|------|
+| id | Serial |
+| project_id | Integer |
+| expense_name | Text |
+| amount | Decimal |
+| category | Text |
+| expense_date | Date |
 
 ---
 
-## Installation
+# ⚙️ Installation
 
-### Clone the repository
-
-```bash
-git clone <repository-url>
-```
-
-### Backend
+## Clone Repository
 
 ```bash
-cd server
-npm install
-npm start
+git clone https://github.com/akheedha/projects-expenses-tracker.git
+
+cd projects-expenses-tracker
 ```
 
-### Frontend
+---
+
+## Install Frontend
 
 ```bash
 cd client
+
 npm install
+
 npm run dev
 ```
 
-Frontend:
+---
 
-```
-http://localhost:5173
+## Install Backend
+
+```bash
+cd server
+
+npm install
+
+npm run dev
 ```
 
 ---
 
-## API Endpoints
+# 🔑 Environment Variables
 
-### Projects
+Create a `.env` file inside the `server` folder.
 
-| Method | Endpoint      |
-| ------ | ------------- |
-| POST   | /projects     |
-| GET    | /projects     |
-| GET    | /projects/:id |
+```env
+DB_USER=your_database_user
+DB_HOST=your_database_host
+DB_NAME=your_database_name
+DB_PASSWORD=your_database_password
+DB_PORT=5432
 
-### Expenses
+PORT=5000
 
-| Method | Endpoint      |
-| ------ | ------------- |
-| POST   | /expenses     |
-| GET    | /expenses/:id |
-| PUT    | /expenses/:id |
-| DELETE | /expenses/:id |
-
----
-
-## Assumptions
-
-* Each expense belongs to one project.
-* Remaining budget is calculated as:
-
-```
-Estimated Budget - Total Expenses
+GEMINI_API_KEY=your_gemini_api_key
 ```
 
-* Expense totals are updated after adding, editing, or deleting an expense.
+Create a `.env` file inside the `client` folder.
+
+```env
+VITE_API_URL=https://your-backend-url
+```
 
 ---
 
-## Future Improvements
+# 📡 API Endpoints
 
-Given more time, I would improve the project by:
+## Projects
 
-* Adding better form validation.
-* Improving the UI to match the provided design more closely.
-* Adding search and filtering for projects.
-* Improving the mobile responsive layout.
+| Method | Endpoint |
+|---------|----------|
+| GET | /projects |
+| GET | /projects/:id |
+| POST | /projects |
 
 ---
 
-## Author
+## Expenses
+
+| Method | Endpoint |
+|---------|----------|
+| GET | /expenses/project/:id |
+| POST | /expenses |
+
+---
+
+## AI
+
+| Method | Endpoint |
+|---------|----------|
+| POST | /ai/analyze |
+
+---
+
+# 📊 Dashboard
+
+The dashboard displays:
+
+- Total Projects
+- Total Budget
+- Total Expenses
+- Remaining Budget
+- Budget Overview
+- Project Budget Comparison
+
+---
+
+# 🚀 Deployment
+
+Frontend
+
+- Vercel
+
+Backend
+
+- Railway
+
+Database
+
+- Neon PostgreSQL
+
+---
+
+# 📚 Future Improvements
+
+- User Authentication
+- Role-Based Access Control
+- Edit/Delete Projects
+- Expense Categories Dashboard
+- File Uploads
+- PDF Reports
+- Email Notifications
+- Dark Mode
+- Advanced AI Budget Forecasting
+
+---
+
+# 👩‍💻 Author
 
 **Akheedha Jan**
+
+GitHub:
+https://github.com/akheedha
+
+LinkedIn:
+https://www.linkedin.com/in/akheedha/
+
+---
